@@ -38,9 +38,9 @@ function Header() {
         {/* Logo */}
         <NavLink
           to="/"
-          className="text-2xl font-black text-[#8A7650] tracking-wide uppercase"
+          className="text-2xl font-black text-brand-charcoal tracking-wide uppercase"
         >
-          CrowdFund
+          <span className="text-peach-terracotta">Crowd</span>Fund
         </NavLink>
 
         {/* Desktop Navigation */}
@@ -82,12 +82,12 @@ function Header() {
               <img
                 src={user?.profileImage || "https://i.pravatar.cc/100?u=" + user?.email}
                 alt="profile"
-                className="w-9 h-9 rounded-full object-cover border-2 border-[#DBCEA5]"
+                className="w-9 h-9 rounded-full object-cover border-2 border-peach-light"
               />
               <button
                 type="button"
                 onClick={handleLogout}
-                className="p-2 text-[#665A44] hover:text-[#8A7650] hover:bg-[#DBCEA5] rounded-lg transition-colors"
+                className="p-2 text-brand-body hover:text-peach-terracotta hover:bg-peach-light/40 rounded-lg transition-colors"
                 title="Logout"
               >
                 <LogOut size={18} />
@@ -98,21 +98,21 @@ function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 rounded-lg text-[#8A7650] hover:bg-[#DBCEA5] transition-colors"
+          className="md:hidden p-2 rounded-lg text-peach-terracotta hover:bg-peach-light/40 transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle navigation menu"
         >
           {mobileMenuOpen ? (
-            <X size={24} className="text-[#8A7650]" />
+            <X size={24} className="text-peach-terracotta" />
           ) : (
-            <Menu size={24} className="text-[#8A7650]" />
+            <Menu size={24} className="text-peach-terracotta" />
           )}
         </button>
       </div>
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-[#DBCEA5]/80 bg-white p-4 space-y-3 shadow-lg">
+        <div className="md:hidden border-t border-peach-light/50 bg-white/95 backdrop-blur-md p-4 space-y-3 shadow-lg">
           <NavLink
             to="/"
             className={"block " + theme.navLink}
@@ -145,7 +145,7 @@ function Header() {
               Dashboard
             </NavLink>
           )}
-          <div className="border-t border-[#DBCEA5]/80 pt-3 space-y-2">
+          <div className="border-t border-peach-light/40 pt-3 space-y-2">
             {!isAuthenticated ? (
               <>
                 <NavLink

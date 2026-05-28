@@ -203,7 +203,7 @@ function FundraisingPage() {
                   {proofFiles.map((file) => (
                     <span
                       key={`${file.name}-${file.lastModified}`}
-                      className="rounded-full bg-[#ECE7D1] px-3 py-1 text-xs font-semibold text-[#665A44]"
+                      className="rounded-full bg-peach-light/40 px-3 py-1 text-xs font-bold text-peach-terracotta"
                     >
                       {file.name}
                     </span>

@@ -38,8 +38,8 @@ function Login() {
     <div className={theme.pageBackground + " min-h-screen"}>
       <div className={theme.pageWrapper}>
         <div className="max-w-md mx-auto">
-          <NavLink to="/" className="text-2xl font-bold text-[#8A7650] mb-8 inline-block">
-            CrowdFund
+          <NavLink to="/" className="text-2xl font-black text-brand-charcoal mb-8 inline-block uppercase">
+            <span className="text-peach-terracotta">Crowd</span>Fund
           </NavLink>
 
           <div className={theme.formCard}>
@@ -100,9 +100,9 @@ function Login() {
               </button>
             </form>
 
-            <p className="mt-6 text-center text-[#3D3324]">
+            <p className="mt-6 text-center text-brand-charcoal">
               Don't have an account?{" "}
-              <NavLink to="/register" className="font-bold text-[#8A7650] hover:underline">
+              <NavLink to="/register" className="font-bold text-peach-terracotta hover:underline">
                 Create one
               </NavLink>
             </p>

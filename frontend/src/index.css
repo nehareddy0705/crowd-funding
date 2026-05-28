@@ -1,1 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import "tailwindcss";
+
+@theme {
+  /* Fresh Peach Palette */
+  --color-peach-light: #FFD3AC;
+  --color-peach-coral: #FFB5AB;
+  --color-peach-terracotta: #E39A7B;
+  --color-peach-gold: #DBB06B;
+
+  /* Custom shades derived for readability and layouts */
+  --color-brand-charcoal: #2D221A;
+  --color-brand-body: #5C4D43;
+  --color-brand-bg: #FCF8F5;
+
+  /* Configure font family */
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-body);
+}

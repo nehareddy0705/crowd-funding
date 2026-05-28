@@ -116,7 +116,7 @@ function Home() {
   if (isAuthenticated && currentRoleHome) {
     return (
       <main className={theme.pageBackground}>
-        <section className="bg-[#FBF8EC]">
+        <section className="bg-peach-light/10 border-b border-peach-light/20">
           <div className={theme.pageWrapper}>
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
               <div>
@@ -138,12 +138,12 @@ function Home() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-[#DBCEA5]/80 bg-white p-6 shadow-sm">
+              <div className="rounded-2xl border border-peach-light/50 bg-white p-6 shadow-md">
                 <h2 className={theme.heading2 + " mb-5"}>Your next steps</h2>
                 <div className="space-y-4">
                   {currentRoleHome.highlights.map((highlight, index) => (
                     <div key={highlight} className="flex gap-4">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#8E977D] text-sm font-bold text-white">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-peach-coral text-sm font-bold text-white">
                         {index + 1}
                       </div>
                       <p className={theme.bodySmall}>{highlight}</p>
@@ -233,8 +233,8 @@ function Home() {
   return (
     <main className={theme.pageBackground}>
       {/* Hero Section */}
-      <section className="relative bg-[#8A7650] text-white py-16 md:py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(219,206,165,0.28),transparent_36%)]"></div>
+      <section className="relative bg-gradient-to-tr from-brand-charcoal via-[#3a2c22] to-[#4c3b2e] text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,181,171,0.15),transparent_40%)]"></div>
         <div className={theme.pageWrapper + " relative z-10"}>
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -264,7 +264,7 @@ function Home() {
               <img
                 src={heroImg}
                 alt="Volunteers packing donation supplies"
-                className="w-full aspect-[4/3] object-cover rounded-lg shadow-2xl border border-white/10"
+                className="w-full aspect-[4/3] object-cover rounded-2xl shadow-2xl border border-white/10"
                 onError={(e) => {
                   e.target.src =
                     "https://images.unsplash.com/photo-1559027615-cd2628902d4a?w=500&h=500&fit=crop";
@@ -353,7 +353,7 @@ function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-[#ECE7D1]">
+      <section className="py-20 bg-peach-light/10 border-t border-b border-peach-light/20">
         <div className={theme.pageWrapper}>
           <h2 className="text-center mb-12">
             <span className={theme.heading}>Why Choose CrowdFund?</span>
@@ -363,7 +363,7 @@ function Home() {
               const Icon = feature.icon;
               return (
                 <div key={feature.title} className="text-center">
-                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-white text-[#8A7650]">
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-peach-terracotta border border-peach-light/35 shadow-sm">
                     <Icon size={26} />
                   </div>
                   <h3 className={theme.subHeading}>{feature.title}</h3>
@@ -376,18 +376,21 @@ function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-[#8E977D] text-white py-12">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Make a Difference?</h2>
-          <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
+      <section className="max-w-7xl mx-auto px-6 mb-16">
+        <div className="bg-gradient-to-r from-peach-terracotta to-peach-coral text-white py-16 px-8 rounded-3xl text-center shadow-lg relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(255,211,172,0.2),transparent_40%)]"></div>
+          <h2 className="text-4xl font-extrabold mb-6 relative z-10">Ready to Make a Difference?</h2>
+          <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto relative z-10">
             Create a campaign, share your story, and let your community support your cause.
           </p>
-          <NavLink
-            to="/register"
-            className={theme.btnOnDark}
-          >
-            Get Started Today
-          </NavLink>
+          <div className="relative z-10">
+            <NavLink
+              to="/register"
+              className={theme.btnOnDark}
+            >
+              Get Started Today
+            </NavLink>
+          </div>
         </div>
       </section>
     </main>

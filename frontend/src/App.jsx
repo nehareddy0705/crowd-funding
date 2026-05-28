@@ -32,7 +32,7 @@ function App() {
 
   if (!authChecked) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#ECE7D1]/45 text-sm font-semibold text-[#8A7650]">
+      <div className="flex min-h-screen items-center justify-center bg-brand-bg text-sm font-bold text-peach-terracotta animate-pulse">
         Checking session...
       </div>
     );

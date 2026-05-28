@@ -96,8 +96,8 @@ function Register() {
     <div className={theme.pageBackground + " min-h-screen"}>
       <div className={theme.pageWrapper}>
         <div className="max-w-xl mx-auto">
-          <NavLink to="/" className="text-2xl font-bold text-[#8A7650] mb-8 inline-block">
-            CrowdFund
+          <NavLink to="/" className="text-2xl font-black text-brand-charcoal mb-8 inline-block uppercase">
+            <span className="text-peach-terracotta">Crowd</span>Fund
           </NavLink>
 
           <div className={theme.formCard}>
@@ -122,7 +122,7 @@ function Register() {
 
               <div className={theme.formGroup}>
                 <label className={theme.label}>Profile Picture</label>
-                <div className="flex flex-col gap-4 rounded-lg border border-dashed border-[#DBCEA5] bg-[#FBF8EC] p-4 sm:flex-row sm:items-center">
+                <div className="flex flex-col gap-4 rounded-2xl border border-dashed border-peach-light bg-brand-bg/50 p-4 sm:flex-row sm:items-center">
                   <img
                     src={
                       profileImage
@@ -199,7 +199,7 @@ function Register() {
                 )}
               </div>
 
-              <div className={theme.formGroup + " rounded-lg bg-[#ECE7D1]/70 p-4"}>
+              <div className={theme.formGroup + " rounded-2xl bg-peach-light/20 p-4"}>
                 <label className={theme.label}>Account Type</label>
                 <select
                   name="role"
@@ -233,9 +233,9 @@ function Register() {
               </div>
             )}
 
-            <p className="mt-6 text-center text-[#3D3324]">
+            <p className="mt-6 text-center text-brand-charcoal">
               Already have an account?{" "}
-              <NavLink to="/login" className="font-bold text-[#8A7650] hover:underline">
+              <NavLink to="/login" className="font-bold text-peach-terracotta hover:underline">
                 Sign In
               </NavLink>
             </p>

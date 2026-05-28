@@ -135,7 +135,7 @@ function CampaignDetail() {
     <main className={theme.pageBackground + " min-h-screen"}>
       <div className={theme.pageWrapper}>
         {/* Campaign Image */}
-        <div className="mb-8 rounded-lg overflow-hidden h-96 bg-[#ECE7D1] shadow-sm">
+        <div className="mb-8 rounded-3xl border border-peach-light/30 overflow-hidden h-96 bg-peach-light/10 shadow-md">
           <img
             src={getCampaignImage(campaign)}
             alt={campaign.title || "Campaign"}
@@ -195,7 +195,7 @@ function CampaignDetail() {
                       href={file.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-lg border border-[#DBCEA5] bg-white px-4 py-2 text-sm font-semibold text-[#665A44] hover:border-[#8A7650] hover:text-[#8A7650]"
+                      className="inline-flex items-center gap-2 rounded-xl border border-peach-light/70 bg-white px-4 py-2.5 text-sm font-bold text-brand-body hover:border-peach-terracotta hover:text-peach-terracotta transition-colors"
                     >
                       <FileText size={16} />
                       {file.name || `Proof ${index + 1}`}

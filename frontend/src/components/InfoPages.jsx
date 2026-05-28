@@ -88,7 +88,7 @@ function InfoPage({ type }) {
     <main className={theme.pageBackground}>
       <section className={theme.pageWrapper}>
         <div className="mx-auto max-w-4xl">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-lg bg-[#ECE7D1] px-4 py-2 text-sm font-semibold text-[#8A7650]">
+          <div className="mb-8 inline-flex items-center gap-2 rounded-xl bg-peach-light/30 px-4 py-2 text-sm font-bold text-peach-terracotta">
             <Icon size={18} />
             {page.eyebrow}
           </div>
@@ -97,7 +97,7 @@ function InfoPage({ type }) {
 
           <div className="mt-10 grid gap-4">
             {page.items.map((item) => (
-              <div key={item} className="rounded-lg border border-[#DBCEA5] bg-white p-5 text-[#514631] shadow-sm">
+              <div key={item} className="rounded-2xl border border-peach-light/40 bg-white p-5 text-brand-body shadow-sm">
                 {item}
               </div>
             ))}

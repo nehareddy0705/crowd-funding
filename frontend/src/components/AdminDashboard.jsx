@@ -73,12 +73,12 @@ function AdminDashboard() {
 
         <div className="mb-10 grid gap-4 md:grid-cols-4">
           <div className={theme.card + " cursor-default"}>
-            <Users className="mb-4 text-[#8A7650]" size={24} />
+            <Users className="mb-4 text-peach-terracotta" size={24} />
             <p className={theme.campaignMeta}>Users</p>
             <p className={theme.heading2}>{stats?.users || 0}</p>
           </div>
           <div className={theme.card + " cursor-default"}>
-            <Clock className="mb-4 text-[#8A7650]" size={24} />
+            <Clock className="mb-4 text-peach-terracotta" size={24} />
             <p className={theme.campaignMeta}>Pending</p>
             <p className={theme.heading2}>{stats?.pendingCampaigns || 0}</p>
           </div>
@@ -118,8 +118,8 @@ function AdminDashboard() {
                       </span>
                       <p className={theme.campaignMeta}>{campaign.category || "Campaign"}</p>
                     </div>
-                    <NavLink to={`/campaign/${campaign._id}`} className="block rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8A7650]/25">
-                      <h2 className={theme.articleTitle + " hover:text-[#8A7650]"}>{campaign.title}</h2>
+                    <NavLink to={`/campaign/${campaign._id}`} className="block rounded-xl focus:outline-none focus:ring-4 focus:ring-peach-coral/20">
+                      <h2 className={theme.articleTitle + " hover:text-peach-terracotta transition-colors"}>{campaign.title}</h2>
                       <p className={theme.articleExcerpt + " mt-2 line-clamp-2"}>
                         {campaign.description}
                       </p>
@@ -136,7 +136,7 @@ function AdminDashboard() {
                             href={file.url}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center gap-2 rounded-full bg-[#ECE7D1] px-3 py-1 text-xs font-semibold text-[#665A44] hover:bg-[#DBCEA5]"
+                            className="inline-flex items-center gap-2 rounded-xl bg-peach-light/40 px-3 py-1 text-xs font-bold text-peach-terracotta hover:bg-peach-light/60 transition-colors"
                           >
                             <FileText size={14} />
                             {file.name || `Proof ${index + 1}`}

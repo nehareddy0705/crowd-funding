@@ -190,22 +190,22 @@ function Profile({ expectedRole }) {
   return (
     <main className={theme.pageBackground}>
       <div className={theme.pageWrapper}>
-        <section className="rounded-lg border border-[#DBCEA5] bg-white p-8 shadow-sm">
+        <section className="rounded-3xl border border-peach-light/40 bg-white p-8 shadow-md">
           <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
               <img
                 src={user?.profileImage || "https://i.pravatar.cc/120?u=" + user?.email}
                 alt={user?.name || "Profile"}
-                className="h-24 w-24 rounded-full border-4 border-[#ECE7D1] object-cover"
+                className="h-24 w-24 rounded-full border-4 border-peach-light object-cover"
               />
               <div>
-                <div className="mb-3 inline-flex items-center gap-2 rounded-lg bg-[#ECE7D1] px-3 py-1 text-xs font-bold uppercase tracking-widest text-[#8A7650]">
+                <div className="mb-3 inline-flex items-center gap-2 rounded-lg bg-peach-light/30 px-3 py-1 text-xs font-bold uppercase tracking-widest text-peach-terracotta">
                   <RoleIcon size={15} />
                   {details.label}
                 </div>
-                <h1 className="text-3xl font-semibold text-[#3D3324]">{user?.name}</h1>
+                <h1 className="text-3xl font-bold text-brand-charcoal">{user?.name}</h1>
                 <p className={theme.bodySmall + " mt-2 max-w-xl"}>{details.description}</p>
-                <div className="mt-4 flex flex-wrap gap-3 text-sm text-[#665A44]">
+                <div className="mt-4 flex flex-wrap gap-3 text-sm text-brand-body/90">
                   {user?.email && (
                     <span className="inline-flex items-center gap-2">
                       <Mail size={15} />
@@ -223,7 +223,7 @@ function Profile({ expectedRole }) {
             </div>
 
             <div>
-              <h2 className="mb-4 text-2xl font-semibold text-[#3D3324]">{details.title}</h2>
+              <h2 className="mb-4 text-2xl font-bold text-brand-charcoal">{details.title}</h2>
               <NavLink to={details.actionTo} className={theme.btnPrimary + " gap-2"}>
                 {details.actionLabel}
                 <ArrowRight size={16} />
@@ -237,7 +237,7 @@ function Profile({ expectedRole }) {
             const Icon = stat.icon;
             return (
               <div key={stat.label} className={theme.card + " cursor-default"}>
-                <Icon className="mb-4 text-[#8A7650]" size={24} />
+                <Icon className="mb-4 text-peach-terracotta" size={24} />
                 <p className={theme.campaignMeta}>{stat.label}</p>
                 <p className={theme.heading2}>{stat.value}</p>
               </div>
@@ -249,7 +249,7 @@ function Profile({ expectedRole }) {
           <section className="mt-12 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
             <DonationHistory donations={donations} loading={loading} />
             <div className={theme.articleCard + " h-fit"}>
-              <HeartHandshake className="mb-4 text-[#8A7650]" size={28} />
+              <HeartHandshake className="mb-4 text-peach-terracotta" size={28} />
               <h2 className={theme.subHeading}>Keep Supporting Causes</h2>
               <p className={theme.bodySmall + " mt-3 mb-5"}>
                 Browse approved campaigns, review their stories, and contribute when a cause feels right.
@@ -314,19 +314,19 @@ function Profile({ expectedRole }) {
         {user?.role === "ADMIN" && (
           <section className="mt-12 grid gap-6 lg:grid-cols-3">
             <NavLink to="/admin-dashboard" className={theme.articleCard + " block"}>
-              <ShieldCheck className="mb-4 text-[#8A7650]" size={28} />
+              <ShieldCheck className="mb-4 text-peach-terracotta" size={28} />
               <h2 className={theme.subHeading}>Campaign Reviews</h2>
               <p className={theme.bodySmall + " mt-3"}>
                 Approve or reject pending campaigns and inspect uploaded proof files.
               </p>
             </NavLink>
             <div className={theme.articleCard}>
-              <Clock className="mb-4 text-[#8A7650]" size={28} />
+              <Clock className="mb-4 text-peach-terracotta" size={28} />
               <h2 className={theme.subHeading}>Pending Queue</h2>
               <p className={theme.heading2 + " mt-3"}>{pendingCampaigns}</p>
             </div>
             <div className={theme.articleCard}>
-              <LayoutDashboard className="mb-4 text-[#8A7650]" size={28} />
+              <LayoutDashboard className="mb-4 text-peach-terracotta" size={28} />
               <h2 className={theme.subHeading}>Platform Campaigns</h2>
               <p className={theme.heading2 + " mt-3"}>{campaigns.length}</p>
             </div>

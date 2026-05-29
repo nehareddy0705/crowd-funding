@@ -127,7 +127,7 @@ function Register() {
                     src={
                       profileImage
                         ? URL.createObjectURL(profileImage)
-                        : "https://i.pravatar.cc/120?u=new-user"
+                        : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                     }
                     alt="Profile preview"
                     className="h-20 w-20 rounded-full border-4 border-white object-cover shadow-sm"

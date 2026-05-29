@@ -16,7 +16,7 @@ const app = exp()
 
 
 app.use(cors({
-  origin: ["http://localhost:5173","https://crowd-funding-green.vercel.app/"],
+  origin: ["http://localhost:5173","https://crowd-funding-green.vercel.app"],
   credentials: true
 }))
 

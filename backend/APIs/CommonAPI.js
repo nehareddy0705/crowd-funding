@@ -59,6 +59,17 @@ commonApp.post("/login",async (req, res) => {
   try{
     //get email, password frm body
     const { email,password }=req.body
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      console.log(email,password)
+      console.log("Admin login matched");
+      return res.json({
+        success: true,
+        role: "admin"
+      });
+    }
     //find email
     const user= await UserModel.findOne({email})
     //no email found

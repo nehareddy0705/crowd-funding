@@ -9,11 +9,19 @@ import { DonationModel } from '../models/DonationModel.js';
 
 export const paymentApp = exp.Router();
 
-// Initialize Razorpay
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
+// Initialize Razorpay lazily to prevent server crashes on boot if env vars are missing on host
+let razorpayInstance = null;
+const getRazorpayInstance = () => {
+  if (!razorpayInstance) {
+    const key_id = process.env.RAZORPAY_KEY_ID;
+    const key_secret = process.env.RAZORPAY_KEY_SECRET;
+    if (!key_id || !key_secret) {
+      throw new Error("Razorpay credentials (RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET) are missing in environment variables.");
+    }
+    razorpayInstance = new Razorpay({ key_id, key_secret });
+  }
+  return razorpayInstance;
+};
 
 // Create Razorpay Order
 paymentApp.post('/create-order', verifyToken("DONOR", "FUNDRAISER", "ADMIN"), async (req, res) => {
@@ -46,7 +54,7 @@ paymentApp.post('/create-order', verifyToken("DONOR", "FUNDRAISER", "ADMIN"), as
       receipt: `receipt_${campaignId.substring(0, 10)}_${Date.now()}`,
     };
 
-    const order = await razorpay.orders.create(options);
+    const order = await getRazorpayInstance().orders.create(options);
     res.status(201).json({
       message: "Order created successfully",
       payload: order
@@ -70,6 +78,10 @@ paymentApp.post('/verify', verifyToken("DONOR", "FUNDRAISER", "ADMIN"), async (r
 
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !campaignId || !amount) {
       return res.status(400).json({ message: "Missing required verification parameters" });
+    }
+
+    if (!process.env.RAZORPAY_KEY_SECRET) {
+      return res.status(500).json({ message: "Razorpay secret key is not configured on the server." });
     }
 
     // Verify signature

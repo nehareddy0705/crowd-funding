@@ -5,6 +5,18 @@ import * as theme from "../styles/Common";
 import { API_BASE_URL } from "../config/api";
 import { getCampaignImage } from "../utils/campaignImages";
 import { useAuth } from "../store/authStore";
+import axios from "axios";
+
+// Helper to load external scripts (Razorpay Checkout SDK)
+const loadScript = (src) => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
 
 function CampaignDetail() {
   const { id } = useParams();
@@ -46,33 +58,98 @@ function CampaignDetail() {
 
     try {
       const amount = parseInt(donationAmount);
-      const response = await fetch(`${API_BASE_URL}/donation-api/donation`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          campaignId: id,
-          amount,
-        }),
-      });
-
-      if (response.ok) {
-        setDonationMessage("Donation successful! Thank you for your support.");
-        setCampaign((prev) => ({
-          ...prev,
-          raisedAmount: (prev.raisedAmount || 0) + amount,
-          donorCount: (prev.donorCount || 0) + 1,
-          donorsCount: (prev.donorsCount || 0) + 1,
-        }));
-        setDonationAmount("");
-      } else {
-        const data = await response.json().catch(() => ({}));
-        setDonationMessage(data.message || "Failed to process donation. Please try again.");
+      if (isNaN(amount) || amount <= 0) {
+        setDonationMessage("Please enter a valid donation amount.");
+        setDonating(false);
+        return;
       }
+
+      // 1. Load Razorpay Checkout SDK
+      const isScriptLoaded = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+      if (!isScriptLoaded) {
+        setDonationMessage("Failed to load payment gateway. Please check your internet connection.");
+        setDonating(false);
+        return;
+      }
+
+      // 2. Create Razorpay order on backend
+      const orderResponse = await axios.post(
+        `${API_BASE_URL}/api/payment/create-order`,
+        { campaignId: id, amount },
+        { withCredentials: true }
+      );
+      
+      const order = orderResponse.data.payload;
+
+      // 3. Open Razorpay Checkout Modal
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: order.amount,
+        currency: order.currency,
+        name: "CrowdFund",
+        description: `Donation for "${campaign.title}"`,
+        order_id: order.id,
+        handler: async function (response) {
+          try {
+            setDonating(true);
+            setDonationMessage("Verifying payment transaction...");
+
+            // 4. Verify payment signature on backend
+            const verifyResponse = await axios.post(
+              `${API_BASE_URL}/api/payment/verify`,
+              {
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                campaignId: id,
+                amount: amount,
+              },
+              { withCredentials: true }
+            );
+
+            if (verifyResponse.status === 201) {
+              setDonationMessage("Donation successful! Thank you for your support.");
+              // 5. Refresh campaign details
+              const updatedCampaign = await axios.get(`${API_BASE_URL}/campaign-api/campaign/${id}`);
+              if (updatedCampaign.status === 200) {
+                setCampaign(updatedCampaign.data.payload);
+              }
+              setDonationAmount("");
+            } else {
+              setDonationMessage("Payment verification failed.");
+            }
+          } catch (verifyError) {
+            console.error("Verification error:", verifyError);
+            setDonationMessage(verifyError.response?.data?.message || "Payment verification failed.");
+          } finally {
+            setDonating(false);
+          }
+        },
+        prefill: {
+          name: user?.name || "",
+          email: user?.email || "",
+          contact: user?.mobile || "",
+        },
+        theme: {
+          color: "#E27B66", // Consistent peach terracotta theme color
+        },
+        modal: {
+          ondismiss: function () {
+            setDonating(false);
+          }
+        }
+      };
+
+      const rzp1 = new window.Razorpay(options);
+      rzp1.on("payment.failed", function (response) {
+        setDonationMessage(`Payment failed: ${response.error.description}`);
+        setDonating(false);
+      });
+      rzp1.open();
+
     } catch (error) {
-      console.error("Donation error:", error);
-      setDonationMessage("Something went wrong. Please try again.");
-    } finally {
+      console.error("Donation initialization error:", error);
+      setDonationMessage(error.response?.data?.message || "Failed to initiate payment. Please try again.");
       setDonating(false);
     }
   };

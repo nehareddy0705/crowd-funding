@@ -7,6 +7,7 @@ import { adminApp } from './APIs/AdminAPI.js'
 import { campaignApp } from './APIs/CampaignAPI.js';
 import { commonApp } from './APIs/CommonAPI.js';
 import { donationApp } from './APIs/DonationAPI.js';
+import { paymentApp } from './APIs/PaymentAPI.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 config()
@@ -28,6 +29,7 @@ app.use("/admin-api",adminApp)
 app.use("/campaign-api",campaignApp)
 app.use("/auth",commonApp)
 app.use("/donation-api",donationApp)
+app.use("/api/payment",paymentApp)
 
 // error handler
 app.use((err, req, res, next) => {

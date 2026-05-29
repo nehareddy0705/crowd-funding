@@ -5,6 +5,10 @@ import { Schema, model, Types } from "mongoose";
 const DonationSchema = new Schema({
     userId: {
         type: Types.ObjectId,
+        ref: "user"
+    },
+    donorId: {
+        type: Types.ObjectId,
         ref: "user",
         required: true
     },
@@ -20,6 +24,18 @@ const DonationSchema = new Schema({
     },
     paymentId: {
         type: String
+    },
+    razorpayOrderId: {
+        type: String,
+        required: true,
+        unique: true,
+        sparse: true
+    },
+    razorpayPaymentId: {
+        type: String,
+        required: true,
+        unique: true,
+        sparse: true
     }
 },{ 
     timestamps: true,

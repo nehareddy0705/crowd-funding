@@ -60,14 +60,41 @@ commonApp.post("/login",async (req, res) => {
     //get email, password frm body
     const { email,password }=req.body
     if (
+      process.env.ADMIN_EMAIL &&
+      process.env.ADMIN_PASSWORD &&
       email === process.env.ADMIN_EMAIL &&
       password === process.env.ADMIN_PASSWORD
     ) {
-      console.log(email,password)
       console.log("Admin login matched");
-      return res.json({
-        success: true,
-        role: "admin"
+      // Find or create admin user in DB
+      let adminUser = await UserModel.findOne({ email });
+      if (!adminUser) {
+        const hashedAdminPassword = await hash(password, 10);
+        adminUser = await UserModel.create({
+          name: "Admin User",
+          email: email,
+          password: hashedAdminPassword,
+          mobile: "0000000000",
+          role: "ADMIN"
+        });
+      }
+      // Generate token
+      const token = sign(
+        { id: adminUser._id, email: adminUser.email, role: adminUser.role },
+        process.env.SECRET_KEY,
+        { expiresIn: "10h" }
+      );
+      //set token to res header as httpOnly
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+      });
+      const userObj = adminUser.toObject();
+      delete userObj.password;
+      return res.status(200).json({
+        message: "Login successful",
+        payload: userObj
       });
     }
     //find email

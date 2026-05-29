@@ -29,6 +29,11 @@ app.use("/campaign-api",campaignApp)
 app.use("/auth",commonApp)
 app.use("/donation-api",donationApp)
 
+// error handler
+app.use((err, req, res, next) => {
+    res.status(err.status || 500).json({ message: err.message });
+});
+
 //assign port number
 const port = process.env.PORT || 4000
 

@@ -21,6 +21,11 @@ commonApp.post("/users",upload.single("profileImage"),async (req, res, next) => 
     const allowedRoles=["DONOR", "FUNDRAISER"]
     if(!allowedRoles.includes(newUser.role))
       return res.status(400).json({message:"Invalid role"})
+    // check if user already exists
+    const existingUser = await UserModel.findOne({ email: newUser.email })
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" })
+    }
     // upload image if exists
     if(req.file){
       cloudinaryResult=await uploadToCloudinary(req.file.buffer)
@@ -45,7 +50,7 @@ commonApp.post("/users",upload.single("profileImage"),async (req, res, next) => 
     // rollback image
     if(cloudinaryResult?.public_id)
       await cloudinary.uploader.destroy(cloudinaryResult.public_id)
-    next(err)
+    res.status(err.status || 500).json({message: err.message})
   }
 })
 
